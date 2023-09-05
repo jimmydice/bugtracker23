@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, request, flash, jsonify
 from flask_login import login_required, current_user 
 from . import db
 import json
-from .models import Bug
+from .models import Bug, User
 from datetime import datetime
 
 
@@ -13,7 +13,7 @@ views = Blueprint('views', __name__)
 @login_required
 def index():
     """Fetch bug data from the database and pass it to the template"""
-    bugs = Bug.query.all()
+    bugs = Bug.query.filter_by(user=current_user).all()
     return render_template('index.html', bugs=bugs)
 
 
@@ -48,6 +48,7 @@ def create_bug():
         status=data['status'], 
         priority=data['priority'],
         date_created=datetime.utcnow()  # Set the current date and time
+        user_id=current_user.id  # Set the user_id to the ID of the currently logged-in user
     )
     
     db.session.add(bug)
