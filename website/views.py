@@ -14,7 +14,7 @@ views = Blueprint('views', __name__)
 def index():
     """Fetch bug data from the database and pass it to the template"""
     bugs = Bug.query.filter_by(user=current_user).all()
-    return render_template('index.html', bugs=bugs)
+    return render_template('index.html', bugs=bugs, user=current_user)
 
 
 

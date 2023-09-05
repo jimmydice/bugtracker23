@@ -8,33 +8,44 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
-            <a class="navbar-brand" href="#">BugTracker</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/login">Log In</a>
-                    </li>
-                    {% if user.is_authenticated %}
+<!-- Navigation Bar -->
+<!-- Navigation Bar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="#">BugTracker</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
                 <li class="nav-item">
-                    <span class="nav-link">Welcome, {{ user.username }}!</span>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/logout">Log Out</a>
-                    </li>
-                    {% endif %}
-                </ul>
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">Log In</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/sign-up">Sign Up</a>
+                </li>
+            </ul>
+            {% if user.is_authenticated %}
             </div>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Log Out</a>
+                </li>
+            </ul>
+            <div class="ml-auto"> <!-- Wrap the Welcome message in a div with ml-auto class -->
+                <span class="navbar-text">User {{ user.username }}!</span>
+
+            {% endif %}
         </div>
-    </nav>
+    </div>
+</nav>
+
+
+
     <br />
     <div class="container">
         <!-- Form to create bugs -->
