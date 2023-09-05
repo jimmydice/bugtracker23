@@ -47,7 +47,7 @@ def create_bug():
         description=data['description'], 
         status=data['status'], 
         priority=data['priority'],
-        date_created=datetime.utcnow()  # Set the current date and time
+        date_created=datetime.utcnow(),  # Set the current date and time
         user_id=current_user.id  # Set the user_id to the ID of the currently logged-in user
     )
     
