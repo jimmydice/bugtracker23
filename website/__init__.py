@@ -3,19 +3,19 @@ from flask_sqlalchemy import SQLAlchemy
 import os
 from os import path
 from datetime import datetime
-from flask_login import LoginManager  # we need to tell our flask in general how we actually log in a user
+from flask_login import LoginManager  #handling user authentication
 
 
-# Configure the SQLite database path (replace 'path/to/database.db' with your actual path)
-db = SQLAlchemy()
-DB_NAME = "database.db"
+# Configure the SQLite database path
+db = SQLAlchemy()  # creates an instance of SQLAlchemy
+DB_NAME = "database.db"  # Specifies the name of the SQLite database file to be used
 
 
 def create_app():
     app = Flask(__name__, static_folder='static')
-    app.config['SECRET_KEY'] = os.urandom(32)
+    app.config['SECRET_KEY'] = os.urandom(32)  
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
-    db.init_app(app)
+    db.init_app(app)  # Initializes the SQLAlchemy extension for the Flask app.
 
     from .views import views 
     from .auth import auth
@@ -24,8 +24,9 @@ def create_app():
     app.register_blueprint(auth, url_prefix='/')
 
     #i added those lines below when i tried to create the user  27 - 37
-    from .models import User, Bug  #we import .models in our __init_.py because we have to make sure that we load this file and that 
-    # this file runs (this models.py file) and defines these classes before we initialise or create our database. 
+    from .models import User, Bug  #we import .models in our __init_.py because we have to make sure that we 
+    # load this file and that this file runs (this models.py file) and defines these classes before 
+    # we initialise or create our database. 
 
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'  #where do we need to go if we are not logged in. It redirects us in auth.login. 
