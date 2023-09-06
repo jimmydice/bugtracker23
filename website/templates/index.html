@@ -9,7 +9,6 @@
 </head>
 <body>
 <!-- Navigation Bar -->
-<!-- Navigation Bar -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
         <a class="navbar-brand" href="#">BugTracker</a>
@@ -22,14 +21,18 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/">Home</a>
                 </li>
+                {% if not current_user.is_authenticated %}
+                <!-- User is not logged in, show log in and sign-up links -->
                 <li class="nav-item">
                     <a class="nav-link" href="/login">Log In</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/sign-up">Sign Up</a>
                 </li>
+                {% endif %}
             </ul>
             {% if user.is_authenticated %}
+            <!-- User is logged in, show log out link -->
             </div>
             <ul class="navbar-nav">
                 <li class="nav-item">
