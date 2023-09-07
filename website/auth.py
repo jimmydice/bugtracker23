@@ -22,9 +22,9 @@ def login():
                 login_user(user, remember=True)  #remembers that the user is logged in while the server is running 
                 return redirect(url_for('views.index'))  # redirect user to the home page after he logs in. 
             else:
-                flash('Incorrect password, try again.', category='error')
+                flash('Incorrect password, try again.', category='danger')
         else:
-            flash('User does not exist.', category='error')
+            flash('User does not exist.', category='danger')
 
     return render_template("login.html", user=current_user)
 
@@ -46,15 +46,15 @@ def sign_up():
 
         user = User.query.filter_by(email=email).first()
         if user:
-            flash('Email already exists.', category='error')  #making sure that a user cannot sign up again with the same email. 
+            flash('Email already exists.', category='danger')  #making sure that a user cannot sign up again with the same email. 
         elif len(email) < 4:
-            flash('Email must be greater than 3 characters.', category='error')
+            flash('Email must be greater than 3 characters.', category='danger')
         elif len(username) < 2:
-            flash('First name must be greater than 1 character.', category='error')
+            flash('First name must be greater than 1 character.', category='danger')
         elif password1 != password2:
-            flash('Passwords don\'t match.', category='error')
+            flash('Passwords don\'t match.', category='danger')
         elif len(password1) < 7:
-            flash('Password must be at least 7 characters.', category='error')
+            flash('Password must be at least 7 characters.', category='danger')
         else:
             new_user = User(email=email, username=username, password=generate_password_hash(
                 password1, method='scrypt'))
