@@ -18,13 +18,16 @@ def login():
         # It will return the first result 
         if user:
             if check_password_hash(user.password, password):  #it searches if the password the user enters matches the hash we have stored in our data center. 
-                #flash(f'User {user.username} successfully logged in!', category='success')
                 login_user(user, remember=True)  #remembers that the user is logged in while the server is running 
                 return redirect(url_for('views.index'))  # redirect user to the home page after he logs in. 
             else:
                 flash('Incorrect password, try again.', category='danger')
         else:
             flash('User does not exist.', category='danger')
+    
+    # Check if the user is not authenticated
+    #if not current_user.is_authenticated:
+    #flash('Please log in to access this page.', category='info')
 
     return render_template("login.html", user=current_user)
 

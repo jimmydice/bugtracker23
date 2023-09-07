@@ -18,22 +18,15 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="/">Home</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="/login">Log In</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/sign-up">Sign Up</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/logout">Log Out</a>
-                </li>
             </ul>
         </div>
     </div>
 </nav>
-<!-- Flash Messages -->
 <!-- Flash Messages -->
 {% with messages = get_flashed_messages(with_categories=true) %}
   {% if messages %}
