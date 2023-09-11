@@ -6,7 +6,7 @@
         <div class="text-center">
             <h1>Account Settings</h1>
         </div>
-        <h2>Edit Username</h2>
+        <h2>Edit Username: "{{ current_user.username }}"</h2>
         <form method="POST" action="/update-username">
             <div class="form-group">
                 <label for="new_username">New Username:</label>
