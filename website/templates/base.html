@@ -7,6 +7,28 @@
     <!-- Bootstrap CSS link here -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <!-- Include additional CSS or resources here if needed -->
+    <style>
+        /* Make the footer stick to the bottom */
+        html, body {
+          height: 100%;
+          margin: 0;
+          padding: 0;
+        }
+      
+        .content {
+          min-height: 100%;
+          /* Equal to the footer height */
+        }
+      
+        .footer {
+          position: absolute;
+          bottom: 0;
+          width: 100%;
+          /* Set the fixed height of your footer here */
+          height: 60px;
+        }
+      </style>
+
 </head>
 <body>
 <!-- Navigation Bar -->
@@ -50,6 +72,8 @@
         </div>
     </div>
 </nav>
+
+
 <!-- Flash Messages -->
 {% with messages = get_flashed_messages(with_categories=true) %}
   {% if messages %}
@@ -63,11 +87,23 @@
     </div>
   {% endif %}
 {% endwith %}
-<div class="container">
-    <!-- Content -->
-    <div class="container mt-5">
-        {% block content %}{% endblock %}
+
+<!-- Content -->
+<div class="container mt-5">
+    {% block content %}{% endblock %}
+</div>
+
+
+{% if request.path.startswith('/login') or request.path.startswith('/sign-up') %}
+<!-- Footer for Log In and Sign-Up pages -->
+
+<footer class="footer bg-white text-black text-center">
+    <div class="container py-3">
+        <p style="color: rgba(125, 120, 120, 0.826);">&copy; Developed and Designed by Dimitris Zaras, 2023</p>
     </div>
+</footer>
+
+{% endif %}
 
     <!-- Bootstrap JavaScript link here -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
