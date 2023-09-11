@@ -10,10 +10,18 @@
         <form method="POST" action="/update-username">
             <div class="form-group">
                 <label for="new_username">New Username:</label>
-                <input type="text" class="form-control" id="new_username" name="new_username" required>
+                <input type="text" 
+                class="form-control" 
+                id="new_username" 
+                name="new_username" 
+                placeholder="Enter new username"
+                required>
             </div>
             <br />
-            <button type="submit" class="btn btn-primary">Save Username</button>
+            <div class="d-flex justify-content-center">
+                <button type="submit" class="btn btn-primary">Save Username</button>
+            </div>
+            
         </form>
         <br />
         <br />
@@ -28,6 +36,7 @@
                 class="form-control" 
                 id="old_password" 
                 name="old_password" 
+                placeholder="Enter current password"
                 required>
             </div>
             <br />
@@ -38,6 +47,7 @@
                 class="form-control" 
                 id="new_password" 
                 name="new_password" 
+                placeholder="Enter new password"
                 required>
             </div>
             <br />
@@ -48,19 +58,25 @@
                 class="form-control" 
                 id="new_password2" 
                 name="new_password2" 
+                placeholder="Type new password again"
                 required>
             </div>
             <br />
-            <button type="submit" 
-            class="btn btn-primary">Save New Password
-            </button>
+            <div class="d-flex justify-content-center">
+                <button type="submit" 
+                class="btn btn-primary">Save New Password
+                </button>
+            </div>
         </form>
         <br />
         <br />
 
         <div class="form-group">
-            <button type="submit" 
-            class="btn btn-danger">Delete Account</button>
+            <div class="d-flex justify-content-center">
+                <button type="submit" 
+                    class="btn btn-danger">Delete Account
+                </button>
+            </div>
         </div>
         <br />
         <br />
