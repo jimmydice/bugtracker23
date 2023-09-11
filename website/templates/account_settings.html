@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Log In{% endblock %}
+{% block content %}
+
+<div class="container mt-5">
+    <div class="text-center">
+        <h1>Account Settings</h1>
+    </div>
+    <h2>Edit Username</h2>
+    <form method="POST" action="/update-username">
+        <div class="form-group">
+            <label for="new_username">New Username:</label>
+            <input type="text" class="form-control" id="new_username" name="new_username" required>
+        </div>
+        <br />
+        <button type="submit" class="btn btn-primary">Save Username</button>
+    </form>
+
+    <h2>Change Password</h2>
+    <form method="POST" action="/update-password">
+        <!-- Password change form here (old password, new password, confirm password) -->
+    </form>
+
+    <h2>Delete Account</h2>
+    <form method="POST" action="/delete-account">
+        <!-- Delete account confirmation form here -->
+    </form>
+</div>
+
+
+
+{% endblock %} 

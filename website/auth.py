@@ -10,6 +10,23 @@ auth = Blueprint('auth', __name__)  #Flask Blueprint named 'auth' that can be us
 #and other functionality related to user authentication within my Flask application.
 
 
+@auth.route('/account-settings', methods=['GET'])
+@login_required
+def account_settings():
+    return render_template('account_settings.html', user=current_user)
+
+
+@auth.route('/update-username', methods=['POST'])
+@login_required
+def update_username():
+    new_username = request.form.get('new_username')
+    current_user.username = new_username
+    db.session.commit()
+    flash('Username updated successfully!', category='success')
+    return redirect(url_for('auth.account_settings'))
+
+
+
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
