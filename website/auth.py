@@ -5,7 +5,8 @@ from . import db   ##means from __init__.py import db
 from flask_login import login_user, login_required, logout_user, current_user  
 
 
-auth = Blueprint('auth', __name__)
+auth = Blueprint('auth', __name__)  #Flask Blueprint named 'auth' that can be used to define routes, views, 
+#and other functionality related to user authentication within my Flask application.
 
 
 @auth.route('/login', methods=['GET', 'POST'])
@@ -50,7 +51,7 @@ def sign_up():
         user = User.query.filter_by(email=email).first()
         if user:
             flash('Email already exists.', category='danger')  #making sure that a user cannot sign up again with the same email. 
-        elif len(email) < 4:
+        elif len(email) < 10:
             flash('Email must be greater than 3 characters.', category='danger')
         elif len(username) < 2:
             flash('First name must be greater than 1 character.', category='danger')
