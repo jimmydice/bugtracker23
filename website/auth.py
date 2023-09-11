@@ -34,6 +34,8 @@ def update_password():
     new_password2 = request.form.get('new_password2')
     if not check_password_hash(current_user.password, old_password):
         flash('Current Password is incorrect!', category='danger')
+    elif not is_valid_password(new_password):
+            flash('Password must be at least 6 characters long and contain at least one special character.', category='danger')
     elif new_password != new_password2:
         flash('Passwords don\'t match.', category='danger')
 
