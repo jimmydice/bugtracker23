@@ -3,10 +3,11 @@
 {% block content %}
 
     <div class="container mt-5">
-        <div class="text-center">
-            <h1>Account Settings</h1>
+        <div class="text-center" style="color: #3f3e3e;">
+            <h2>Account Settings</h2>
         </div>
-        <h2>Edit Username: "{{ current_user.username }}"</h2>
+        <br />
+        <h4>Edit Username for: "{{ current_user.username }}"</h4>
         <form method="POST" action="/update-username">
             <div class="form-group">
                 <label for="new_username">New Username:</label>
@@ -26,7 +27,7 @@
         <br />
         <br />
 
-        <h2>Change Password</h2>
+        <h4>Change Password</h4>
         <form method="POST" action="/update-password">
             <!-- Password change form here (old password, new password, confirm password) -->
             <div class="form-group">
