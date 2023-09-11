@@ -6,6 +6,7 @@ from datetime import datetime
 from flask_login import LoginManager  #handling user authentication
 
 
+
 # Configure the SQLite database path
 db = SQLAlchemy()  # creates an instance of SQLAlchemy
 DB_NAME = "database.db"  # Specifies the name of the SQLite database file to be used

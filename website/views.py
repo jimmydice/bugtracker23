@@ -21,7 +21,47 @@ def index():
 @views.route('/json', methods=['GET'])
 @login_required
 def get_bugs():
-    """get bugs in json format"""
+    """
+    Retrieves a list of bug reports in JSON format.
+
+    Returns:
+        JSON: A JSON representation of bug reports with their attributes.
+
+    Notes:
+        - This function queries the database for all bug reports.
+        - It constructs a list of dictionaries, where each dictionary represents a bug report.
+        - The dictionaries contain the following bug attributes:
+          - 'id': The unique identifier of the bug.
+          - 'title': The title or summary of the bug.
+          - 'description': A detailed description of the bug.
+          - 'status': The current status of the bug.
+          - 'priority': The priority level assigned to the bug.
+          - 'date_created': The date and time when the bug report was created, formatted as 'YYYY-MM-DD HH:MM:SS'.
+        - The list of bug dictionaries is then converted to JSON format using Flask's 'jsonify' function.
+        - This endpoint is typically used to retrieve a list of bug reports in a machine-readable format, e.g., for
+          consumption by a front-end application or for exporting bug data.
+
+    Example:
+        An example of the JSON response for two bug reports might look like this:
+        [
+            {
+                'id': 1,
+                'title': 'UI Alignment Issue',
+                'description': 'The elements on the page are not aligned properly.',
+                'status': 'Open',
+                'priority': 'High',
+                'date_created': '2023-09-09 14:30:00'
+            },
+            {
+                'id': 2,
+                'title': 'Authentication Bug',
+                'description': 'Users are unable to log in.',
+                'status': 'Resolved',
+                'priority': 'Medium',
+                'date_created': '2023-09-08 10:15:00'
+            }
+        ]
+    """
     bugs = Bug.query.all()
     bug_list = []
     for bug in bugs:
@@ -40,7 +80,38 @@ def get_bugs():
 @views.route('/bugs', methods=['POST'])
 @login_required
 def create_bug():
-    """Creates a bug and updates the bug database"""
+    """
+    Create a new bug report and update the bug database.
+
+    Args:
+        None (data is provided in the request JSON).
+
+    Returns:
+        JSON: A JSON response indicating the success of the bug creation and the new bug's ID.
+
+    Notes:
+        - This function is used to create a new bug report based on the data provided in the request JSON.
+        - The required attributes for creating a bug report include 'title', 'description', 'status', and 'priority'.
+        - The 'date_created' attribute is automatically set to the current date and time using 'datetime.utcnow()'.
+        - The 'user_id' attribute is set to the ID of the currently logged-in user using 'current_user.id'.
+        - The newly created bug is added to the database session and committed to the database.
+        - A JSON response is returned to confirm the successful creation of the bug report, along with the new bug's ID.
+        - The response status code '201 Created' indicates a successful creation.
+
+    Example Request (JSON):
+        {
+            'title': 'UI Alignment Issue',
+            'description': 'The elements on the page are not aligned properly.',
+            'status': 'Open',
+            'priority': 'High'
+        }
+
+    Example Response (JSON):
+        {
+            'message': 'Bug created successfully',
+            'bug_id': 1
+        }
+    """
     data = request.json
     bug = Bug(
         title=data['title'], 

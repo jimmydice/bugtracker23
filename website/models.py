@@ -6,6 +6,33 @@ from datetime import datetime
 
 # Define the Bug model
 class Bug(db.Model):
+    """
+    Represents a bug report in the application.
+
+    Attributes:
+        id (int): A unique identifier for the bug.
+        title (str): The title or summary of the bug (non-nullable).
+        description (str): A detailed description of the bug (non-nullable).
+        status (str): The current status of the bug (non-nullable).
+        priority (str): The priority level assigned to the bug (non-nullable).
+        date_created (datetime): The date and time when the bug was created (non-nullable).
+        user_id (int): The user identifier associated with the bug report (foreign key, non-nullable).
+
+    Relationships:
+        - 'user': The user who reported this bug.
+
+    Notes:
+        - This class represents a bug report in the application's database.
+        - It inherits from 'db.Model', indicating it's an SQLAlchemy model.
+        - The 'id' field is an auto-incremented integer primary key.
+        - 'title' is a short, descriptive title or summary of the bug.
+        - 'description' provides a more detailed description of the bug.
+        - 'status' represents the current status of the bug (e.g., 'Open', 'In Progress', 'Resolved').
+        - 'priority' indicates the priority level of the bug (e.g., 'Low', 'Medium', 'High').
+        - 'date_created' records the date and time when the bug report was created.
+        - 'user_id' is a foreign key linking the bug report to the user who reported it.
+        - The 'user' relationship allows accessing the user associated with this bug.
+    """
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
     description = db.Column(db.Text, nullable=False)
@@ -44,7 +71,7 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(100), unique=True, nullable=False)
     username = db.Column(db.String(150), nullable=False)
-    password = db.Column(db.String(100), nullable=False)  # Store hashed passwords
+    password = db.Column(db.String(100), nullable=False) 
     bugs = db.relationship('Bug', backref='user', lazy=True)
     
 

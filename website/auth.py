@@ -3,6 +3,7 @@ from .models import User, db
 from werkzeug.security import generate_password_hash, check_password_hash
 from . import db   ##means from __init__.py import db
 from flask_login import login_user, login_required, logout_user, current_user  
+from .password import is_valid_password
 
 
 auth = Blueprint('auth', __name__)  #Flask Blueprint named 'auth' that can be used to define routes, views, 
@@ -53,12 +54,15 @@ def sign_up():
             flash('Email already exists.', category='danger')  #making sure that a user cannot sign up again with the same email. 
         elif len(email) < 10:
             flash('Email must be greater than 3 characters.', category='danger')
-        elif len(username) < 2:
-            flash('First name must be greater than 1 character.', category='danger')
+        elif len(username) < 3:
+            flash('First name must be greater than 2 characters.', category='danger')
+        elif not is_valid_password(password1):
+            flash('Password must be at least 6 characters long and contain at least one special character.', category='danger')
         elif password1 != password2:
             flash('Passwords don\'t match.', category='danger')
-        elif len(password1) < 7:
-            flash('Password must be at least 7 characters.', category='danger')
+        
+            
+
         else:
             new_user = User(email=email, username=username, password=generate_password_hash(
                 password1, method='scrypt'))
