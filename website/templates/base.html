@@ -30,7 +30,7 @@
                 </li>
                 {% endif %}
             </ul>
-            {% if user.is_authenticated %}
+            {% if current_user.is_authenticated %}
             <!-- User is logged in, show log out link -->
             </div>
             <ul class="navbar-nav">
@@ -43,7 +43,7 @@
                 </li>
             </ul>
             <div class="ml-auto"> <!-- Wrap the Welcome message in a div with ml-auto class -->
-                <span class="navbar-text">User: {{ user.username }}</span>
+                <span class="navbar-text">User: {{ current_user.username }}</span>
             {% endif %}
         </div>
     </div>

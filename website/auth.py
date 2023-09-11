@@ -26,6 +26,25 @@ def update_username():
     return redirect(url_for('auth.account_settings'))
 
 
+@auth.route("/update-password", methods=['POST'])
+@login_required
+def update_password():
+    old_password = request.form.get('old_password')
+    new_password = request.form.get('new_password')
+    new_password2 = request.form.get('new_password2')
+    if not check_password_hash(current_user.password, old_password):
+        flash('Current Password is incorrect!', category='danger')
+    elif new_password != new_password2:
+        flash('Passwords don\'t match.', category='danger')
+
+    else:
+        current_user.password = generate_password_hash(new_password, method='scrypt')
+        db.session.commit()
+        flash('Password updated successfully!', category='success')
+    
+    return redirect(url_for('auth.account_settings'))
+
+
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
@@ -56,6 +75,7 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('auth.login'))
+
 
 
 @auth.route('/sign-up', methods=['GET', 'POST'])
