@@ -52,6 +52,21 @@ def update_password():
 @auth.route('/delete-account', methods=['POST'])
 @login_required
 def delete_account():
+    """
+    Handle the deletion of the user's account.
+
+    This function deletes the user's account and associated data, such as bugs,
+    when the user initiates an account deletion request.
+
+    Returns:
+        Flask Response: A redirect to the login page or another page after successful
+        account deletion. In case of an error, it redirects back to the account settings
+        page with an error message.
+
+    Raises:
+        Exception: If any unexpected error occurs during the account deletion process,
+        it will be caught, and the user will be informed with an error message.
+    """
     try:
         # Get the user's account and associated bugs
         user = current_user
