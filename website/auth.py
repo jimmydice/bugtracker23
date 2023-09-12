@@ -1,9 +1,10 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
-from .models import User, db
+from .models import User, db, Bug
 from werkzeug.security import generate_password_hash, check_password_hash
 from . import db   ##means from __init__.py import db
 from flask_login import login_user, login_required, logout_user, current_user  
 from .password import is_valid_password
+
 
 
 auth = Blueprint('auth', __name__)  #Flask Blueprint named 'auth' that can be used to define routes, views, 
@@ -33,7 +34,7 @@ def update_password():
     new_password = request.form.get('new_password')
     new_password2 = request.form.get('new_password2')
     if not check_password_hash(current_user.password, old_password):
-        flash('Current Password is incorrect!', category='danger')
+        flash('Current password is incorrect!', category='danger')
     elif not is_valid_password(new_password):
             flash('Password must be at least 6 characters long and contain at least one special character.', category='danger')
     elif new_password != new_password2:
@@ -46,6 +47,33 @@ def update_password():
     
     return redirect(url_for('auth.account_settings'))
 
+
+
+@auth.route('/delete-account', methods=['POST'])
+@login_required
+def delete_account():
+    try:
+        # Get the user's account and associated bugs
+        user = current_user
+        bugs = Bug.query.filter_by(user_id=user.id).all()
+
+        # Delete associated bug related to this user
+        for bug in bugs:
+            db.session.delete(bug)
+
+        # Delete the user's account
+        db.session.delete(user)
+        db.session.commit()
+
+        # Logout the user after account deletion
+        logout_user()
+        print("Your account has been deleted successfully")
+        flash('Your account has been deleted successfully.', category='success')
+        return redirect(url_for('auth.login'))  # Redirect to the login page or another page
+
+    except Exception as e:
+        flash(f'An error occurred: {str(e)}', category='danger')
+        return redirect(url_for('auth.account_settings'))  # Redirect back to account settings on error
 
 
 @auth.route('/login', methods=['GET', 'POST'])
