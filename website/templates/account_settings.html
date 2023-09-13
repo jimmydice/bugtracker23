@@ -72,17 +72,25 @@
         <br />
         <br />
 
+  
         <div class="form-group">
             <div class="d-flex justify-content-center">
                 <form method="POST" action="{{ url_for('auth.delete_account') }}">
-                    <button type="submit" class="btn btn-danger">Delete Account</button>
+                    <button 
+                    type="submit" 
+                    class="btn btn-danger" 
+                    id="deleteAccountButton" 
+                    data-toggle="modal" 
+                    data-target="#confirmDeleteModal"
+                    >Delete Account
+                </button>
                 </form>
                 
             </div>
         </div>
         <br />
         <br />
-            <!-- Delete account confirmation form here -->
+
         </form>
     </div>
 

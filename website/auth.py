@@ -11,6 +11,7 @@ auth = Blueprint('auth', __name__)  #Flask Blueprint named 'auth' that can be us
 #and other functionality related to user authentication within my Flask application.
 
 
+
 @auth.route('/account-settings', methods=['GET'])
 @login_required
 def account_settings():
@@ -48,10 +49,16 @@ def update_password():
     return redirect(url_for('auth.account_settings'))
 
 
-
 @auth.route('/delete-account', methods=['POST'])
 @login_required
 def delete_account():
+    # Render the confirmation page
+    return render_template('confirm_delete.html')
+
+
+@auth.route('/confirm-delete', methods=['POST'])
+@login_required
+def delete_account_2():
     """
     Handle the deletion of the user's account.
 
@@ -68,27 +75,35 @@ def delete_account():
         it will be caught, and the user will be informed with an error message.
     """
     try:
-        # Get the user's account and associated bugs
-        user = current_user
-        bugs = Bug.query.filter_by(user_id=user.id).all()
+        # Check if the user confirmed the deletion
+        if request.form.get('confirm') == 'yes':
+            # Get the user's account and associated bugs
+            user = current_user
+            bugs = Bug.query.filter_by(user_id=user.id).all()
 
-        # Delete associated bug related to this user
-        for bug in bugs:
-            db.session.delete(bug)
+            # Delete associated bug related to this user
+            for bug in bugs:
+                db.session.delete(bug)
 
-        # Delete the user's account
-        db.session.delete(user)
-        db.session.commit()
+            # Delete the user's account
+            db.session.delete(user)
+            db.session.commit()
 
-        # Logout the user after account deletion
-        logout_user()
-        print("Your account has been deleted successfully")
-        flash('Your account has been deleted successfully.', category='success')
+            # Logout the user after account deletion
+            logout_user()
+            print("Your account has been deleted successfully")
+            flash('Your account has been deleted successfully.', category='success')
+        
         return redirect(url_for('auth.login'))  # Redirect to the login page or another page
+
+        # If the user didn't confirm, redirect back to account settings
+        # flash('Account deletion was canceled.', category='info')
+        # return redirect(url_for('auth.account_settings'))
 
     except Exception as e:
         flash(f'An error occurred: {str(e)}', category='danger')
         return redirect(url_for('auth.account_settings'))  # Redirect back to account settings on error
+
 
 
 @auth.route('/login', methods=['GET', 'POST'])

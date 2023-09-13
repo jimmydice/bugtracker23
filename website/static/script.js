@@ -161,3 +161,18 @@ function updateBugList(bugs) {
       bugTableBody.appendChild(bugRow);
   });
 }
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    // Handle the "Delete" button click
+    document.getElementById("deleteAccountButton").addEventListener("click", function () {
+        // Display the confirmation modal
+        $('#confirmDeleteModal').modal('show');
+    });
+
+    // Handle the "Confirm Delete" button click
+    document.getElementById("confirmDelete").addEventListener("click", function () {
+        // Redirect to the delete account route when confirmed
+        window.location.href = '/delete-account';
+    });
+});
