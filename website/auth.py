@@ -80,7 +80,7 @@ def delete_account_2():
         # If the user didn't confirm, redirect back to account settings
         if confirmation == 'no':
             # If the user didn't confirm, redirect back to account settings
-            flash('Account deletion was canceled.', category='info')
+            flash('Account deletion was canceled.', category='warning')
             return redirect(url_for('auth.account_settings'))
 
         elif confirmation == 'yes':
