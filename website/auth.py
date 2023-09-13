@@ -76,7 +76,14 @@ def delete_account_2():
     """
     try:
         # Check if the user confirmed the deletion
-        if request.form.get('confirm') == 'yes':
+        confirmation = request.form.get('confirm')
+        # If the user didn't confirm, redirect back to account settings
+        if confirmation == 'no':
+            # If the user didn't confirm, redirect back to account settings
+            flash('Account deletion was canceled.', category='info')
+            return redirect(url_for('auth.account_settings'))
+
+        elif confirmation == 'yes':
             # Get the user's account and associated bugs
             user = current_user
             bugs = Bug.query.filter_by(user_id=user.id).all()
