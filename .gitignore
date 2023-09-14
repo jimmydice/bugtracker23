@@ -25,10 +25,14 @@ share/python-wheels/
 .installed.cfg
 *.egg
 MANIFEST
+
 .idea/
+idea
+.idea
 
 jim_env
-idea
+jim_env/
+
 .gitignore
 requirements.txt
 gitignore 
