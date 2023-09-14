@@ -69,9 +69,9 @@ class User(db.Model, UserMixin):
         - Lazy loading is enabled for the 'bugs' relationship, meaning that bugs are loaded only when accessed.
     """
     id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(100), unique=True, nullable=False)
-    username = db.Column(db.String(150), nullable=False)
-    password = db.Column(db.String(100), nullable=False) 
+    email = db.Column(db.String(255), unique=True, nullable=False)
+    username = db.Column(db.String(255), nullable=False)
+    password = db.Column(db.String(255), nullable=False) 
     bugs = db.relationship('Bug', backref='user', lazy=True)
     
 
