@@ -169,7 +169,7 @@ def sign_up():
 
         else:
             new_user = User(email=email, username=username, password=generate_password_hash(
-                password1, method='scrypt'))
+                password1, method='pbkdf2:sha256'))
             db.session.add(new_user)  # adds the new user to the database 
             db.session.commit()  #commit the changes. Updates the database with the new user. 
 
