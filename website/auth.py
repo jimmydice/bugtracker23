@@ -156,8 +156,8 @@ def sign_up():
         user = User.query.filter_by(email=email).first()
         if user:
             flash('Email already exists.', category='danger')  #making sure that a user cannot sign up again with the same email. 
-        elif len(email) < 10:
-            flash('Email must be greater than 3 characters.', category='danger')
+        elif len(email) < 10 and '@' not in email:
+            flash('Please enter a valid email address.', category='danger')
         elif len(username) < 3:
             flash('First name must be greater than 2 characters.', category='danger')
         elif not is_valid_password(password1):
