@@ -11,7 +11,6 @@ from flask_login import LoginManager  #handling user authentication
 db = SQLAlchemy()  # creates an instance of SQLAlchemy
 DB_NAME = "database.db"  # Specifies the name of the SQLite database file to be used
 
-FLASK_KEY = 'jimmyDice24539123'
 
 def create_app():
     app = Flask(__name__, static_folder='static')
