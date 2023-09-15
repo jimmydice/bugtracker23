@@ -11,10 +11,12 @@ from flask_login import LoginManager  #handling user authentication
 db = SQLAlchemy()  # creates an instance of SQLAlchemy
 DB_NAME = "database.db"  # Specifies the name of the SQLite database file to be used
 
+FLASK_KEY = 'jimmyDice24539123'
 
 def create_app():
     app = Flask(__name__, static_folder='static')
-    app.config['SECRET_KEY'] = os.urandom(32)  
+    # app.config['SECRET_KEY'] = os.urandom(32)  # THIS IS WOKRING 100%
+    app.config['SECRET_KEY'] = os.environ.get('FLASK_KEY')   
     app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DB_URI", f'sqlite:///{DB_NAME}')
     db.init_app(app)  # Initializes the SQLAlchemy extension for the Flask app.
 
