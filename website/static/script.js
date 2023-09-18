@@ -10,7 +10,7 @@ document.getElementById("bugForm").addEventListener("submit", function (event) {
       bugData[key] = value;
   });
 
-  // Send a POST request to create a new bug
+  // Send a POST request to @views.route('/bugs', methods=['POST']) to create a new bug
   fetch("/bugs", {
       method: "POST",
       headers: {

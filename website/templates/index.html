@@ -69,6 +69,7 @@
                     </thead>
                     <tbody>
                         {% for bug in bugs %}
+                        {# dynamically render bug data retrieved from the server. #}
                         <tr id="bugRow_{{ bug.id }}">
                             <td>{{ bug.title }}</td>
                             <td>{{ bug.description }}</td>

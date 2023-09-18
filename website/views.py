@@ -7,8 +7,11 @@ from datetime import datetime
 
 
 views = Blueprint('views', __name__)
+# The views blueprint contains routes for the homepage, bug creation, bug listing, bug updates, and bug searches.
 
 
+
+# These routes handle HTTP requests and render HTML templates
 @views.route('/')
 @login_required
 def index():
@@ -77,7 +80,7 @@ def get_bugs():
     return jsonify(bug_list)
 
 
-@views.route('/bugs', methods=['POST'])
+@views.route('/bugs', methods=['POST'])  #It is triggered when the JavaScript function sends a POST request to the /bugs endpoint.
 @login_required
 def create_bug():
     """
@@ -112,7 +115,7 @@ def create_bug():
             'bug_id': 1
         }
     """
-    data = request.json
+    data = request.json  #  extracts the bug data from the JSON request using request.json.
     bug = Bug(
         title=data['title'], 
         description=data['description'], 
@@ -124,6 +127,7 @@ def create_bug():
     
     db.session.add(bug)
     db.session.commit()
+    
     return jsonify({'message': 'Bug created successfully', 'bug_id': bug.id}), 201
 
 
@@ -147,6 +151,7 @@ def delete_bug(bug_id):
     bug = Bug.query.get_or_404(bug_id)
     db.session.delete(bug)
     db.session.commit()
+
     return jsonify({'message': 'Bug deleted successfully'}), 200
 
 
